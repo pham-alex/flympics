@@ -283,6 +283,16 @@ h2 {
   border-bottom: 2px solid var(--lane-line);
   background: linear-gradient(to bottom, transparent 66%, #e2e8d5 66%, #e2e8d5 68%, transparent 68%);
   cursor: pointer;
+  transition: background 0.3s, border-color 0.3s;
+}
+
+.lane.is-pool {
+  background: linear-gradient(to bottom, #dbeffb 0%, #cae8f8 66%, #0096c7 66%, #0096c7 68%, #dbeffb 68%);
+  border-bottom-color: #0077b6;
+}
+
+.lane.is-pool::before {
+  background: #023e8a;
 }
 
 .lane::before {

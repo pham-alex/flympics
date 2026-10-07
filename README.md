@@ -61,9 +61,9 @@ To open the local website with the animated fly and circuit activity card:
 python -m experiments.serve_view
 ```
 
-Visit **http://localhost:8000**. Select a controller, play/pause, change playback
-speed, or scrub the timeline. The page shows actual Python simulation output;
-the browser does not simulate neural dynamics. The interactive brain widget uses an
+Visit **http://localhost:8000**. Toggle between **100 m Sprint** and **50 m Swim**,
+select a controller, play/pause, change playback speed, or scrub the timeline. The page
+shows actual Python simulation output; the browser does not simulate neural dynamics.
 illustrative fiber map with selectable regions. Brain regions are context only;
 the four nerve-cord populations light up using recorded mean activity, synchronized
 with playback and scrubbing. Traveling dots follow a readable subset of real
@@ -132,7 +132,33 @@ this environment. The trained policy matches that reference; this is a small
 first task, not evidence of general locomotion learning or biological training.
 Different random seeds do not provide independent neural-policy validation here:
 the sprint and fly controller are deterministic. Refit and reevaluate if physics,
-connectivity, or dynamics change. Other events remain future work.
+connectivity, or dynamics change.
+
+## Run and train the 50 m swim
+
+The 50 m swim introduces a viscous fluid medium with high water drag (`0.60` vs track drag `0.16`) and stroke propulsion (`1.05` vs track `1.25`), giving a terminal swimming speed of `1.75 m/s` (vs sprint `7.81 m/s`). In water, gliding bleeds forward momentum almost immediately.
+
+```bash
+python -m experiments.run_swim --controller random
+python -m experiments.run_swim --controller rule
+python -m experiments.run_swim --controller fly
+python -m experiments.run_swim --controller trained --no-plot
+```
+
+To watch the fly in the swimming pool viewer or export an animated GIF:
+
+```bash
+python -m experiments.run_swim --controller trained --view
+python -m experiments.run_swim --controller trained --gif
+```
+
+To fit the artificial motor decoder for swimming:
+
+```bash
+python -m experiments.train_swim
+```
+
+Training evaluates 34 motor thresholds against the 50 m swim score and saves `models/swim.json`. The calibrated policy completes 50 m in **30.2 s**, while the untrained fly controller reaches only **0.7 m at the 60 s timeout** due to heavy fluid resistance. The rule baseline (target `1.5 m/s`) completes 50 m in **35.3 s**, and the random baseline finishes in **56.1 s**.
 
 ## Tests
 
@@ -140,20 +166,20 @@ connectivity, or dynamics change. Other events remain future work.
 python -m pytest -q
 ```
 
-Tests do not need network access. They cover Sprint reset/steps/termination, legal actions, controller runs, encoder and neural dimensions, motor decoding, seeded reproducibility, and connectome loading.
+Tests do not need network access. They cover Sprint and Swim reset/steps/termination, legal actions, baseline and neural controllers, encoder and neural dimensions, motor decoding, seeded reproducibility, connectome loading, and web viewer payloads.
 
 ## Architecture
 
 ```text
-events/                 OlympicEvent interface; Sprint implementation
-controllers/            Controller interface; random and rule baselines
+events/                 OlympicEvent interface; Sprint and Swim implementations
+controllers/            Controller interface; random and rule baselines (sprint & swim)
 brain/connectome.py     real-data-derived sparse-circuit loader
 brain/dynamics.py       modeled neural dynamics (replaceable)
 brain/sensory.py        artificial observation → stimulation adapter
 brain/motor.py          artificial activity → game-action adapter
 brain/controller.py     closed-loop fly controller
-experiments/            reproducible CLI experiment and structured logs
-visualization/          intentionally basic Matplotlib output
+experiments/            reproducible CLI experiments and structured logs
+visualization/          sprint & swim Matplotlib viewers and browser replay
 data/                   provenance and compact circuit artifact
 ```
 
@@ -163,7 +189,7 @@ Add an event by implementing `OlympicEvent` (`reset`, `observe`, `step`, `is_fin
 
 ## Future ideas (not implemented)
 
-Hurdles, archery, swimming, connectome ablation (“brain surgery”), evolutionary sensory/motor mappings, personalized fly training, student-trained-fly tournaments, replay, and neural-activity visualization are deliberately left for students.
+Hurdles, archery, connectome ablation (“brain surgery”), evolutionary sensory/motor mappings, personalized fly training, student-trained-fly tournaments, replay, and neural-activity visualization are deliberately left for students.
 
 ## Sources and attribution
 

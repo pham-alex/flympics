@@ -1,0 +1,261 @@
+{
+  "version": 1,
+  "event": "swim",
+  "method": "deterministic motor-threshold grid search",
+  "seed": 7,
+  "motor_threshold": 8.619535664753033e-06,
+  "best": {
+    "motor_threshold": 8.619535664753033e-06,
+    "score": 30.2,
+    "finished": true,
+    "time": 30.2,
+    "distance": 50.0
+  },
+  "untrained": {
+    "motor_threshold": 0.015,
+    "score": 109.3,
+    "finished": false,
+    "time": 60.0,
+    "distance": 0.6999999999999994
+  },
+  "trials": [
+    {
+      "motor_threshold": 0.015,
+      "score": 109.3,
+      "finished": false,
+      "time": 60.0,
+      "distance": 0.6999999999999994
+    },
+    {
+      "motor_threshold": 0.1,
+      "score": 109.825,
+      "finished": false,
+      "time": 60.0,
+      "distance": 0.17499999999999982
+    },
+    {
+      "motor_threshold": 0.05945570708544391,
+      "score": 109.65,
+      "finished": false,
+      "time": 60.0,
+      "distance": 0.34999999999999976
+    },
+    {
+      "motor_threshold": 0.03534981105030106,
+      "score": 109.65,
+      "finished": false,
+      "time": 60.0,
+      "distance": 0.34999999999999976
+    },
+    {
+      "motor_threshold": 0.021017480113324893,
+      "score": 109.3,
+      "finished": false,
+      "time": 60.0,
+      "distance": 0.6999999999999994
+    },
+    {
+      "motor_threshold": 0.012496091412919868,
+      "score": 109.125,
+      "finished": false,
+      "time": 60.0,
+      "distance": 0.8749999999999992
+    },
+    {
+      "motor_threshold": 0.00742963950759495,
+      "score": 109.125,
+      "finished": false,
+      "time": 60.0,
+      "distance": 0.8749999999999992
+    },
+    {
+      "motor_threshold": 0.004417344703140073,
+      "score": 108.95,
+      "finished": false,
+      "time": 60.0,
+      "distance": 1.0499999999999965
+    },
+    {
+      "motor_threshold": 0.0026263635276533325,
+      "score": 108.775,
+      "finished": false,
+      "time": 60.0,
+      "distance": 1.2250000000000005
+    },
+    {
+      "motor_threshold": 0.0015615230060004965,
+      "score": 108.775,
+      "finished": false,
+      "time": 60.0,
+      "distance": 1.2250000000000005
+    },
+    {
+      "motor_threshold": 0.0009284145445194745,
+      "score": 108.6,
+      "finished": false,
+      "time": 60.0,
+      "distance": 1.3999999999999986
+    },
+    {
+      "motor_threshold": 0.0005519954321281573,
+      "score": 108.6,
+      "finished": false,
+      "time": 60.0,
+      "distance": 1.3999999999999986
+    },
+    {
+      "motor_threshold": 0.0003281927872511474,
+      "score": 108.425,
+      "finished": false,
+      "time": 60.0,
+      "distance": 1.5750000000000013
+    },
+    {
+      "motor_threshold": 0.00019512934226359642,
+      "score": 108.25,
+      "finished": false,
+      "time": 60.0,
+      "distance": 1.7499999999999976
+    },
+    {
+      "motor_threshold": 0.00011601553017399714,
+      "score": 108.25,
+      "finished": false,
+      "time": 60.0,
+      "distance": 1.7499999999999976
+    },
+    {
+      "motor_threshold": 6.897785379387658e-05,
+      "score": 108.075,
+      "finished": false,
+      "time": 60.0,
+      "distance": 1.9249999999999972
+    },
+    {
+      "motor_threshold": 4.1011270705513043e-05,
+      "score": 107.9,
+      "finished": false,
+      "time": 60.0,
+      "distance": 2.0999999999999948
+    },
+    {
+      "motor_threshold": 2.4383540982688266e-05,
+      "score": 107.725,
+      "finished": false,
+      "time": 60.0,
+      "distance": 2.2749999999999937
+    },
+    {
+      "motor_threshold": 1.4497406703726346e-05,
+      "score": 107.2,
+      "finished": false,
+      "time": 60.0,
+      "distance": 2.7999999999999954
+    },
+    {
+      "motor_threshold": 8.619535664753033e-06,
+      "score": 30.2,
+      "finished": true,
+      "time": 30.2,
+      "distance": 50.0
+    },
+    {
+      "motor_threshold": 5.124805876960936e-06,
+      "score": 30.2,
+      "finished": true,
+      "time": 30.2,
+      "distance": 50.0
+    },
+    {
+      "motor_threshold": 3.0469895709035113e-06,
+      "score": 30.2,
+      "finished": true,
+      "time": 30.2,
+      "distance": 50.0
+    },
+    {
+      "motor_threshold": 1.8116091942004133e-06,
+      "score": 30.2,
+      "finished": true,
+      "time": 30.2,
+      "distance": 50.0
+    },
+    {
+      "motor_threshold": 1.077105056036769e-06,
+      "score": 30.2,
+      "finished": true,
+      "time": 30.2,
+      "distance": 50.0
+    },
+    {
+      "motor_threshold": 6.404004271197283e-07,
+      "score": 30.2,
+      "finished": true,
+      "time": 30.2,
+      "distance": 50.0
+    },
+    {
+      "motor_threshold": 3.807546021222376e-07,
+      "score": 30.2,
+      "finished": true,
+      "time": 30.2,
+      "distance": 50.0
+    },
+    {
+      "motor_threshold": 2.263803409521451e-07,
+      "score": 30.2,
+      "finished": true,
+      "time": 30.2,
+      "distance": 50.0
+    },
+    {
+      "motor_threshold": 1.3459603241553642e-07,
+      "score": 30.2,
+      "finished": true,
+      "time": 30.2,
+      "distance": 50.0
+    },
+    {
+      "motor_threshold": 8.002502278161052e-08,
+      "score": 30.2,
+      "finished": true,
+      "time": 30.2,
+      "distance": 50.0
+    },
+    {
+      "motor_threshold": 4.757944314009414e-08,
+      "score": 30.2,
+      "finished": true,
+      "time": 30.2,
+      "distance": 50.0
+    },
+    {
+      "motor_threshold": 2.8288694346259725e-08,
+      "score": 30.2,
+      "finished": true,
+      "time": 30.2,
+      "distance": 50.0
+    },
+    {
+      "motor_threshold": 1.681924324880869e-08,
+      "score": 30.2,
+      "finished": true,
+      "time": 30.2,
+      "distance": 50.0
+    },
+    {
+      "motor_threshold": 1e-08,
+      "score": 30.2,
+      "finished": true,
+      "time": 30.2,
+      "distance": 50.0
+    },
+    {
+      "motor_threshold": 0.0,
+      "score": 30.2,
+      "finished": true,
+      "time": 30.2,
+      "distance": 50.0
+    }
+  ]
+}
