@@ -1,12 +1,12 @@
 // Fibers are deterministic illustration; only the four MANC groups use run data.
 const brainRegions = [
-  {id:'vision', label:'Optic lobes', color:'#40d9ec', title:'See the surroundings', description:'The optic lobes process visual information. They provide context for a real fly’s movement, but this sprint has no visual input or optic-lobe simulation.'},
-  {id:'navigation', label:'Central complex', color:'#f176df', title:'Orientation & navigation', description:'The central complex supports orientation and navigation in flies. It is shown for context; this straight-line sprint does not model navigation or record activity here.'},
+  {id:'vision', label:'Optic lobes', color:'#40d9ec', title:'See the surroundings', description:'The optic lobes process visual information. They provide context for a real fly’s movement, but this Olympic event has no visual input or optic-lobe simulation.'},
+  {id:'navigation', label:'Central complex', color:'#f176df', title:'Orientation & navigation', description:'The central complex supports orientation and navigation in flies. It is shown for context; this straight-line event does not model navigation or record activity here.'},
   {id:'descending', label:'Descending pathways', color:'#e6c65c', title:'From brain to movement circuits', description:'Descending neurons carry signals from the brain to the nerve cord. These pathways are illustrative here; the model instead supplies artificial task input directly to selected sensory neurons.'},
-  {id:'sensory', label:'Sensory input', color:'#40d9ec', field:'sensory_mean', title:'Read the sprint state', description:'Selected front-leg sensory neurons receive artificial stimulation based on remaining distance and speed. Their brightness follows the recorded mean activity, not measured sensory firing.'},
+  {id:'sensory', label:'Sensory input', color:'#40d9ec', field:'sensory_mean', title:'Read the event state', description:'Selected front-leg sensory neurons receive artificial stimulation based on remaining distance and speed. Their brightness follows the recorded mean activity, not measured sensory firing.'},
   {id:'intrinsic', label:'Interneurons', color:'#b18aff', field:'intrinsic_mean', title:'Pass the signal through the circuit', description:'Selected nerve-cord interneurons propagate modeled activity through real MANC connectivity. This circuit links sensory input to motor output; it does not simulate individual leg movements.'},
-  {id:'extensor', label:'Extensor output', color:'#b4ee68', field:'motor_extensor', title:'Contribute to the accelerate command', description:'The artificial decoder subtracts flexor mean activity from extensor mean activity. A difference above the fitted threshold commands ACCELERATE; otherwise the athlete coasts.'},
-  {id:'flexor', label:'Flexor output', color:'#ffab70', field:'motor_flexor', title:'The other half of the motor readout', description:'Flexor output is read alongside extensor output. Both populations can be active at once. Their difference determines the sprint action; these are not simulated muscle contractions.'}
+  {id:'extensor', label:'Extensor output', color:'#b4ee68', field:'motor_extensor', title:'Contribute to the active movement command', description:'The artificial decoder subtracts flexor mean activity from extensor mean activity. A difference above the fitted threshold commands acceleration or stroking; otherwise the athlete coasts or glides.'},
+  {id:'flexor', label:'Flexor output', color:'#ffab70', field:'motor_flexor', title:'The other half of the motor readout', description:'Flexor output is read alongside extensor output. Both populations can be active at once. Their difference determines the motor action; these are not simulated muscle contractions.'}
 ];
 let brainSelected = 'intrinsic', brainRow, brainAvailable = true;
 const brainGroups = new Map();
@@ -146,5 +146,14 @@ function drawBrain(row, available) {
   }
   const selected=brainRegions.find(r=>r.id===brainSelected);
   document.getElementById('brain-region-value').textContent=!selected.field ? 'Not simulated' : !available ? 'N/A' : `${(row?.[selected.field] ?? 0).toFixed(3)} / 1`;
-  document.getElementById('brain-state').textContent=!available ? 'Baseline controller · no neural activity recorded.' : !row?.simulation_time ? 'Ready · play or scrub the sprint to see activity.' : `${row.action === 'ACCELERATE' ? 'Accelerating' : 'Coasting'} · ${row.position.toFixed(1)} / 100 m · brightness = population mean (0–1)`;
+  const eventKey = (typeof getEventKey === 'function') ? getEventKey() : 'sprint';
+  const targetDistance = (typeof getTargetDistance === 'function') ? getTargetDistance() : 100;
+  const isStrokeOrAccel = row?.action === 'ACCELERATE' || row?.action === 'STROKE';
+  const actionText = isStrokeOrAccel ? (eventKey === 'swim' ? 'Stroking' : 'Accelerating') : (eventKey === 'swim' ? 'Gliding' : 'Coasting');
+  const eventName = eventKey === 'swim' ? 'swim' : 'sprint';
+  document.getElementById('brain-state').textContent = !available
+    ? 'Baseline controller · no neural activity recorded.'
+    : !row?.simulation_time
+      ? `Ready · play or scrub the ${eventName} to see activity.`
+      : `${actionText} · ${row.position.toFixed(1)} / ${targetDistance} m · brightness = population mean (0–1)`;
 }
