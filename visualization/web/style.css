@@ -1088,3 +1088,232 @@ footer a:hover {
   .brain-widget { padding: 18px 14px; }
   .transport button { padding: 9px 12px; }
 }
+
+
+/* Multi-lane heat visualization */
+.lanes-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lane-row {
+  border-radius: 8px;
+  padding: 4px 6px;
+  background: rgba(255, 255, 255, 0.4);
+  border: 1.5px solid transparent;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  margin-bottom: 4px;
+}
+
+.lane-row:hover {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: #cbd5bc;
+}
+
+.lane-row.is-selected {
+  background: #fdfef9;
+  border-color: #557540;
+  box-shadow: 0 0 0 1px #557540, 0 2px 6px rgba(45, 76, 51, 0.08);
+}
+
+.lane-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  padding: 2px 4px 3px;
+}
+
+.lane-badge {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.badge-trained { color: #215c2d; }
+.badge-rule { color: #1565c0; }
+.badge-random { color: #7b1fa2; }
+.badge-fly { color: #c62828; }
+
+.lane-telemetry {
+  font-size: 10.5px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: #4b5d44;
+}
+
+.lanes-multi .lane {
+  height: 48px;
+  margin-top: 2px;
+}
+
+.lanes-multi .athlete-sprite {
+  width: 50px;
+  height: 38px;
+  bottom: 2px;
+}
+
+.lanes-single .lane-row:not(.is-selected) {
+  display: none;
+}
+
+.lanes-single .lane {
+  height: 104px;
+  margin-top: 4px;
+}
+
+.lanes-single .athlete-sprite {
+  width: 65px;
+  height: 52px;
+  bottom: 3px;
+}
+
+.athlete-sprite, #athlete {
+  position: absolute;
+  left: 32px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  transition: left 0.05s linear;
+}
+
+.athlete-sprite svg, #athlete svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.15));
+}
+
+.athlete-sprite.is-running svg, #athlete.is-running svg {
+  animation: fly-stride 140ms infinite alternate ease-in-out;
+}
+
+.athlete-sprite.is-running .fly-wings, #athlete.is-running .fly-wings {
+  animation: fly-flutter 80ms infinite alternate ease-in-out;
+  transform-origin: 40px 40px;
+}
+
+/* Analytics Panel & Split Times */
+.panel.analytics {
+  margin-top: 24px;
+}
+
+.analytics-tabs {
+  display: inline-flex;
+  gap: 8px;
+}
+
+.tab-btn {
+  font: inherit;
+  font-size: 11.5px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid #cbd5bc;
+  background: #fbfcf8;
+  color: #4d5f47;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.15s ease;
+  box-shadow: none;
+}
+
+.tab-btn:hover {
+  background: #edf2e6;
+  transform: none;
+}
+
+.tab-btn.is-active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.analytics-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+  margin-top: 14px;
+}
+
+.analytics-table th {
+  text-align: left;
+  padding: 10px 12px;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #6c7c64;
+  border-bottom: 2px solid #dce3d4;
+  white-space: nowrap;
+}
+
+.analytics-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #e7ede0;
+  font-variant-numeric: tabular-nums;
+  color: #28372b;
+  white-space: nowrap;
+}
+
+.analytics-table tr:hover td {
+  background: #f4f8ee;
+  cursor: pointer;
+}
+
+.analytics-table tr.is-selected td {
+  background: #eaf1e3;
+  font-weight: 600;
+}
+
+.status-finished {
+  color: #205c2d;
+  font-weight: 600;
+}
+
+.status-timeout {
+  color: #b71c1c;
+  font-weight: 600;
+}
+
+.split-pill {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+.split-fastest {
+  background: #d8edd9;
+  color: #1b5323;
+  font-weight: 700;
+  border: 1px solid #b2d8b5;
+}
+
+.split-normal {
+  background: #f0f4ea;
+  color: #3b4e36;
+}
+
+.split-dnf {
+  color: #9aa892;
+  font-style: italic;
+}
+
+.analytics-note {
+  font-size: 10.5px;
+  color: #7b8a74;
+  margin-top: 12px;
+  line-height: 1.5;
+}
+
+.is-hidden {
+  display: none !important;
+}

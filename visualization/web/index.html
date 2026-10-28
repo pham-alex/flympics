@@ -2,22 +2,60 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Flympics · Sprint Lab</title>
-  <link rel="stylesheet" href="style.css?v=swim-v5">
+  <title>Flympics · Sprint & Swim Lab</title>
+  <link rel="stylesheet" href="style.css?v=v6">
 </head>
 <body>
 <main>
   <header><a class="brand" href="/">F<span>ly</span>mpics<span class="brand-dot">.</span></a><span class="pill">MENTOR MVP · LOCAL SIMULATION</span></header>
   <section class="intro"><div><p class="eyebrow">SMALL FLY. BIG AMBITIONS.</p><h1 id="intro-headline">Olympic Games.<br>One tiny circuit.</h1><p class="description">Watch a connectome-derived controller take on Olympic events.<br>Real connections. Modeled activity. Very questionable athleticism.</p></div><div class="experiment-label"><span id="exp-number">EXPERIMENT 001</span><strong id="exp-title">100 m sprint</strong><small id="seed">Loading simulation…</small></div></section>
-  <div class="toolbar"><label>Event <select id="event"><option value="sprint" selected>100 m Sprint</option><option value="swim">50 m Swim</option></select></label><label>Controller <select id="controller"><option value="trained">Trained fly</option><option value="fly">Untrained fly</option><option value="rule">Rule baseline</option><option value="random">Random baseline</option></select></label><span id="status" role="status">Loading recorded run</span></div>
+  <div class="toolbar">
+    <label>Event <select id="event"><option value="sprint" selected>100 m Sprint</option><option value="swim">50 m Swim</option></select></label>
+    <label>Active Inspector <select id="controller"><option value="trained">Trained fly</option><option value="fly">Untrained fly</option><option value="rule">Rule baseline</option><option value="random">Random baseline</option></select></label>
+    <label>Replay Mode <select id="view-mode"><option value="multi" selected>All 4 Lanes (Heat)</option><option value="single">Single Lane</option></select></label>
+    <span id="status" role="status">Loading recorded run</span>
+  </div>
   <div class="layout">
     <section class="panel arena"><div class="panel-heading"><h2 id="arena-title">The track</h2><span class="tag">FIXED TIMESTEP · 0.1 s</span></div>
       <div class="stats"><div><span>Distance</span><strong><b id="distance">0.00</b><small id="dist-target"> / 100 m</small></strong></div><div><span>Speed</span><strong><b id="velocity">0.00</b><small> m/s</small></strong></div><div><span>Time</span><strong><b id="time">0.0</b><small> s</small></strong></div></div>
-      <div class="track"><div class="track-labels"><span>START</span><span id="finish-label">FINISH</span></div><div class="lane" id="lane"><div class="finish"></div><div id="athlete" aria-label="Fruit fly athlete"><svg viewBox="0 0 100 80" role="img" aria-label="Illustrated fruit fly"><g stroke="#2d342c" stroke-width="3" fill="none"><path d="M44 40 24 17M46 40 18 39M44 40 25 65M61 40 77 15M61 40 84 38M60 40 77 64"/></g><g class="fly-wings" fill="#e0f1e8" stroke="#6a9380" stroke-width="1.5" opacity=".92"><ellipse cx="37" cy="26" rx="24" ry="12" transform="rotate(25 37 26)"/><ellipse cx="37" cy="54" rx="24" ry="12" transform="rotate(-25 37 54)"/></g><ellipse cx="44" cy="40" rx="23" ry="13" fill="#a57b4b"/><path d="M33 30v20M42 28v24" stroke="#76522f" stroke-width="3"/><ellipse cx="64" cy="40" rx="14" ry="14" fill="#303b2d"/><circle cx="70" cy="34" r="6" fill="#df704d"/></svg></div></div><div class="ruler" id="ruler"><span>0</span><span>25</span><span>50</span><span>75</span><span>100 m</span></div></div>
-      <div class="action-row"><span>Controller action</span><strong id="action">READY</strong></div>
+      <div class="track" id="track-container">
+        <div class="track-labels"><span>START</span><span id="finish-label">FINISH</span></div>
+        <div id="lanes-wrapper" class="lanes-multi">
+          <div class="lane-row is-selected" data-controller="trained" id="lane-row-trained">
+            <div class="lane-header"><span class="lane-badge badge-trained">🥇 Trained fly</span><span class="lane-telemetry" id="lane-stat-trained">0.00 m</span></div>
+            <div class="lane" id="lane-trained">
+              <div class="finish"></div>
+              <div class="athlete-sprite" id="athlete-trained" aria-label="Trained fly athlete"><svg viewBox="0 0 100 80" role="img" aria-label="Illustrated fruit fly"><g stroke="#2d342c" stroke-width="3" fill="none"><path d="M44 40 24 17M46 40 18 39M44 40 25 65M61 40 77 15M61 40 84 38M60 40 77 64"/></g><g class="fly-wings" fill="#e0f1e8" stroke="#6a9380" stroke-width="1.5" opacity=".92"><ellipse cx="37" cy="26" rx="24" ry="12" transform="rotate(25 37 26)"/><ellipse cx="37" cy="54" rx="24" ry="12" transform="rotate(-25 37 54)"/></g><ellipse cx="44" cy="40" rx="23" ry="13" fill="#a57b4b"/><path d="M33 30v20M42 28v24" stroke="#76522f" stroke-width="3"/><ellipse cx="64" cy="40" rx="14" ry="14" fill="#303b2d"/><circle cx="70" cy="34" r="6" fill="#df704d"/></svg></div>
+            </div>
+          </div>
+          <div class="lane-row" data-controller="rule" id="lane-row-rule">
+            <div class="lane-header"><span class="lane-badge badge-rule">⏱ Rule baseline</span><span class="lane-telemetry" id="lane-stat-rule">0.00 m</span></div>
+            <div class="lane" id="lane-rule">
+              <div class="finish"></div>
+              <div class="athlete-sprite" id="athlete-rule" aria-label="Rule baseline fly"><svg viewBox="0 0 100 80" role="img" aria-label="Illustrated fruit fly"><g stroke="#2d342c" stroke-width="3" fill="none"><path d="M44 40 24 17M46 40 18 39M44 40 25 65M61 40 77 15M61 40 84 38M60 40 77 64"/></g><g class="fly-wings" fill="#d9edf7" stroke="#488ab4" stroke-width="1.5" opacity=".92"><ellipse cx="37" cy="26" rx="24" ry="12" transform="rotate(25 37 26)"/><ellipse cx="37" cy="54" rx="24" ry="12" transform="rotate(-25 37 54)"/></g><ellipse cx="44" cy="40" rx="23" ry="13" fill="#6c8096"/><path d="M33 30v20M42 28v24" stroke="#45566b" stroke-width="3"/><ellipse cx="64" cy="40" rx="14" ry="14" fill="#2b3846"/><circle cx="70" cy="34" r="6" fill="#2196f3"/></svg></div>
+            </div>
+          </div>
+          <div class="lane-row" data-controller="random" id="lane-row-random">
+            <div class="lane-header"><span class="lane-badge badge-random">🎲 Random baseline</span><span class="lane-telemetry" id="lane-stat-random">0.00 m</span></div>
+            <div class="lane" id="lane-random">
+              <div class="finish"></div>
+              <div class="athlete-sprite" id="athlete-random" aria-label="Random baseline fly"><svg viewBox="0 0 100 80" role="img" aria-label="Illustrated fruit fly"><g stroke="#2d342c" stroke-width="3" fill="none"><path d="M44 40 24 17M46 40 18 39M44 40 25 65M61 40 77 15M61 40 84 38M60 40 77 64"/></g><g class="fly-wings" fill="#f5e0ea" stroke="#b46497" stroke-width="1.5" opacity=".92"><ellipse cx="37" cy="26" rx="24" ry="12" transform="rotate(25 37 26)"/><ellipse cx="37" cy="54" rx="24" ry="12" transform="rotate(-25 37 54)"/></g><ellipse cx="44" cy="40" rx="23" ry="13" fill="#8e6284"/><path d="M33 30v20M42 28v24" stroke="#683d5f" stroke-width="3"/><ellipse cx="64" cy="40" rx="14" ry="14" fill="#3c2638"/><circle cx="70" cy="34" r="6" fill="#ab47bc"/></svg></div>
+            </div>
+          </div>
+          <div class="lane-row" data-controller="fly" id="lane-row-fly">
+            <div class="lane-header"><span class="lane-badge badge-fly">🛑 Untrained fly</span><span class="lane-telemetry" id="lane-stat-fly">0.00 m</span></div>
+            <div class="lane" id="lane-fly">
+              <div class="finish"></div>
+              <div class="athlete-sprite" id="athlete-fly" aria-label="Untrained fly"><svg viewBox="0 0 100 80" role="img" aria-label="Illustrated fruit fly"><g stroke="#2d342c" stroke-width="3" fill="none"><path d="M44 40 24 17M46 40 18 39M44 40 25 65M61 40 77 15M61 40 84 38M60 40 77 64"/></g><g class="fly-wings" fill="#eaeaea" stroke="#9e9e9e" stroke-width="1.5" opacity=".85"><ellipse cx="37" cy="26" rx="24" ry="12" transform="rotate(25 37 26)"/><ellipse cx="37" cy="54" rx="24" ry="12" transform="rotate(-25 37 54)"/></g><ellipse cx="44" cy="40" rx="23" ry="13" fill="#757575"/><path d="M33 30v20M42 28v24" stroke="#424242" stroke-width="3"/><ellipse cx="64" cy="40" rx="14" ry="14" fill="#212121"/><circle cx="70" cy="34" r="6" fill="#f44336"/></svg></div>
+            </div>
+          </div>
+        </div>
+        <div class="ruler" id="ruler"><span>0</span><span>25</span><span>50</span><span>75</span><span>100 m</span></div>
+      </div>
+      <div class="action-row"><span>Active controller action</span><strong id="action">READY</strong></div>
       <div class="transport"><button id="play" disabled>Play run</button><button class="secondary" id="restart" disabled>Restart</button><label>Speed <select id="speed"><option value="1">1×</option><option value="5" selected>5×</option><option value="10">10×</option></select></label></div>
       <label class="timeline-label" for="timeline">Simulation timeline <span id="progress">0 / 60 s</span></label><input id="timeline" type="range" min="0" max="600" value="0" disabled>
-      <p class="caption">Playback of an actual Python simulation. Playback speed never changes the physics. <span class="shortcut-tip"><kbd>Space</kbd> play/pause · <kbd>←</kbd><kbd>→</kbd> scrub · <kbd>R</kbd> reset</span></p>
+      <p class="caption">Playback of an actual Python simulation. Playback speed never changes the physics. <span class="shortcut-tip"><kbd>Space</kbd> play/pause · <kbd>←</kbd><kbd>→</kbd> scrub · <kbd>R</kbd> reset · <kbd>1</kbd>–<kbd>4</kbd> select lane</span></p>
     </section>
     <aside class="panel activity"><div class="panel-heading"><h2>The sprinting brain</h2><span class="activity-dot"></span></div><p class="subheading">Explore the route from sensing to movement.</p>
       <section class="brain-widget" aria-label="Interactive fly brain and sprint circuit">
@@ -48,10 +86,54 @@
 <p class="note">Role layout, not anatomical positions. This is a nerve-cord circuit, not a whole brain. Reward and dopamine learning are not modeled yet; the task goal is assigned to the controller, not individual neurons.</p>
     </aside>
   </div>
+  <section class="panel analytics" aria-label="Race data analysis and split times">
+    <div class="panel-heading">
+      <div>
+        <h2 id="analytics-title">Race Data Analysis & Pacing</h2>
+        <p class="subheading" id="analytics-subheading">Deterministic benchmarks and kinematic split times across all four controllers.</p>
+      </div>
+      <div class="analytics-tabs">
+        <button type="button" class="tab-btn is-active" id="tab-benchmarks">Summary Benchmarks</button>
+        <button type="button" class="tab-btn" id="tab-splits">Split Times (Pacing)</button>
+      </div>
+    </div>
+
+    <div class="analytics-view" id="view-benchmarks">
+      <div class="table-responsive">
+        <table class="analytics-table">
+          <thead>
+            <tr>
+              <th>Controller</th>
+              <th>Outcome</th>
+              <th>Finish Time</th>
+              <th>Distance</th>
+              <th>Peak Speed</th>
+              <th>Avg Speed</th>
+              <th>Propulsion Effort</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-benchmarks"></tbody>
+        </table>
+      </div>
+      <p class="analytics-note">Propulsion effort is kinematic work proxy \(\int F_{\text{stroke/accel}} \cdot v \, dt\) in arbitrary units.</p>
+    </div>
+
+    <div class="analytics-view is-hidden" id="view-splits">
+      <div class="table-responsive">
+        <table class="analytics-table">
+          <thead>
+            <tr id="tr-splits-header"></tr>
+          </thead>
+          <tbody id="tbody-splits"></tbody>
+        </table>
+      </div>
+      <p class="analytics-note">Interval split times reveal pacing and speed maintenance. Green highlights indicate the fastest split for each interval.</p>
+    </div>
+  </section>
   <footer><div><strong>135 neurons · 2,770 connections</strong><p>Real MANC connectivity with artificial sensory and motor mappings.<br>This is a selected nerve-cord model, not a whole-brain simulation.</p></div><a id="download" href="#">Download run JSON ↗</a></footer>
 </main>
-<script src="signals.js?v=swim-v5"></script>
-<script src="brain.js?v=swim-v5"></script>
-<script src="neural.js?v=swim-v5"></script>
-<script src="app.js?v=swim-v5"></script>
+<script src="signals.js?v=v6"></script>
+<script src="brain.js?v=v6"></script>
+<script src="neural.js?v=v6"></script>
+<script src="app.js?v=v6"></script>
 </body></html>
